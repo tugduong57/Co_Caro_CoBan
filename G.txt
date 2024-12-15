@@ -1,0 +1,722 @@
+0 0 X 0 0	 
+1 lỏng mở; 1 lỏng mở;
+0 0 X 0 1 0
+1 lỏng mở; 1 liên kết đơn lỏng mở;
+0 0 X 0 1 1 0
+1 lỏng mở; 1 liên kết đôi lỏng mở;
+0 0 X 0 1 1 1 0
+1 lỏng mở; 1 liên kết tam lỏng mở;
+0 0 X 0 1 1 1 1 0
+1 lỏng mở; Win nhưng không xét;
+0 0 X 0 1 1 1 1 -1
+1 lỏng mở; Win nhưng không xét;
+0 0 X 0 1 1 1 -1
+1 lỏng mở; 1 liên kết tam lỏng đóng;
+0 0 X 0 1 1 -1
+1 lỏng mở; 1 liên kết đôi lỏng đóng;
+0 0 X 0 1 -1
+1 lỏng mở; 1 liên kết đơn lỏng đóng;
+0 0 X 0 -1
+1 lỏng mở; 1 lỏng đóng;
+0 0 X 1 0
+1 lỏng mở; 1 liên kết đơn chặt mở;
+0 0 X 1 1 0
+1 lỏng mở; 1 liên kết đôi chặt mở;
+0 0 X 1 1 1 0
+1 lỏng mở; 1 liên kết tam chặt mở;
+0 0 X 1 1 1 1 0
+1 lỏng mở; Win;
+0 0 X 1 1 1 1 -1
+1 lỏng mở; Win;
+0 0 X 1 1 1 -1
+1 lỏng mở; 1 liên kết tam chặt đóng;
+0 0 X 1 1 -1
+1 lỏng mở; 1 liên kết đôi chặt đóng;
+0 0 X 1 -1
+1 lỏng mở; 1 liên kết đơn chặt đóng;
+0 0 X -1
+1 lỏng mở; 1 chặt đóng;
+0 1 0 X 0 0
+1 liên kết đơn lỏng mở; 1 lỏng mở;
+0 1 0 X 0 1 0
+1 liên kết đơn lỏng mở; 1 liên kết đơn lỏng mở;
+0 1 0 X 0 1 1 0
+1 liên kết đơn lỏng mở; 1 liên kết đôi lỏng mở;
+0 1 0 X 0 1 1 1 0
+1 liên kết đơn lỏng mở; 1 liên kết tam lỏng mở;
+0 1 0 X 0 1 1 1 1 0
+1 liên kết đơn lỏng mở; Win nhưng không xét;
+0 1 0 X 0 1 1 1 1 -1
+1 liên kết đơn lỏng mở; Win nhưng không xét;
+0 1 0 X 0 1 1 1 -1
+1 liên kết đơn lỏng mở; 1 liên kết tam lỏng đóng;
+0 1 0 X 0 1 1 -1
+1 liên kết đơn lỏng mở; 1 liên kết đôi lỏng đóng;
+0 1 0 X 0 1 -1
+1 liên kết đơn lỏng mở; 1 liên kết đơn lỏng đóng;
+0 1 0 X 0 -1
+1 liên kết đơn lỏng mở; 1 lỏng đóng;
+0 1 0 X 1 0
+1 liên kết đơn lỏng mở; 1 liên kết đơn chặt mở;
+0 1 0 X 1 1 0
+1 liên kết đơn lỏng mở; 1 liên kết đôi chặt mở;
+0 1 0 X 1 1 1 0
+1 liên kết đơn lỏng mở; 1 liên kết tam chặt mở;
+0 1 0 X 1 1 1 1 0
+1 liên kết đơn lỏng mở; Win;
+0 1 0 X 1 1 1 1 -1
+1 liên kết đơn lỏng mở; Win;
+0 1 0 X 1 1 1 -1
+1 liên kết đơn lỏng mở; 1 liên kết tam chặt đóng;
+0 1 0 X 1 1 -1
+1 liên kết đơn lỏng mở; 1 liên kết đôi chặt đóng;
+0 1 0 X 1 -1
+1 liên kết đơn lỏng mở; 1 liên kết đơn chặt đóng;
+0 1 0 X -1
+1 liên kết đơn lỏng mở; 1 chặt đóng;
+0 1 1 0 X 0 0
+1 liên kết đôi lỏng mở; 1 lỏng mở;
+0 1 1 0 X 0 1 0
+1 liên kết đôi lỏng mở; 1 liên kết đơn lỏng mở;
+0 1 1 0 X 0 1 1 0
+1 liên kết đôi lỏng mở; 1 liên kết đôi lỏng mở;
+0 1 1 0 X 0 1 1 1 0
+1 liên kết đôi lỏng mở; 1 liên kết tam lỏng mở;
+0 1 1 0 X 0 1 1 1 1 0
+1 liên kết đôi lỏng mở; Win nhưng không xét;
+0 1 1 0 X 0 1 1 1 1 -1
+1 liên kết đôi lỏng mở; Win nhưng không xét;
+0 1 1 0 X 0 1 1 1 -1
+1 liên kết đôi lỏng mở; 1 liên kết tam lỏng đóng;
+0 1 1 0 X 0 1 1 -1
+1 liên kết đôi lỏng mở; 1 liên kết đôi lỏng đóng;
+0 1 1 0 X 0 1 -1
+1 liên kết đôi lỏng mở; 1 liên kết đơn lỏng đóng;
+0 1 1 0 X 0 -1
+1 liên kết đôi lỏng mở; 1 lỏng đóng;
+0 1 1 0 X 1 0
+1 liên kết đôi lỏng mở; 1 liên kết đơn chặt mở;
+0 1 1 0 X 1 1 0
+1 liên kết đôi lỏng mở; 1 liên kết đôi chặt mở;
+0 1 1 0 X 1 1 1 0
+1 liên kết đôi lỏng mở; 1 liên kết tam chặt mở;
+0 1 1 0 X 1 1 1 1 0
+1 liên kết đôi lỏng mở; Win;
+0 1 1 0 X 1 1 1 1 -1
+1 liên kết đôi lỏng mở; Win;
+0 1 1 0 X 1 1 1 -1
+1 liên kết đôi lỏng mở; 1 liên kết tam chặt đóng;
+0 1 1 0 X 1 1 -1
+1 liên kết đôi lỏng mở; 1 liên kết đôi chặt đóng;
+0 1 1 0 X 1 -1
+1 liên kết đôi lỏng mở; 1 liên kết đơn chặt đóng;
+0 1 1 0 X -1
+1 liên kết đôi lỏng mở; 1 chặt đóng;
+0 1 1 1 0 X 0 0
+1 liên kết tam lỏng mở; 1 lỏng mở;
+0 1 1 1 0 X 0 1 0
+1 liên kết tam lỏng mở; 1 liên kết đơn lỏng mở;
+0 1 1 1 0 X 0 1 1 0
+1 liên kết tam lỏng mở; 1 liên kết đôi lỏng mở;
+0 1 1 1 0 X 0 1 1 1 0
+1 liên kết tam lỏng mở; 1 liên kết tam lỏng mở;
+0 1 1 1 0 X 0 1 1 1 1 0
+1 liên kết tam lỏng mở; Win nhưng không xét;
+0 1 1 1 0 X 0 1 1 1 1 -1
+1 liên kết tam lỏng mở; Win nhưng không xét;
+0 1 1 1 0 X 0 1 1 1 -1
+1 liên kết tam lỏng mở; 1 liên kết tam lỏng đóng;
+0 1 1 1 0 X 0 1 1 -1
+1 liên kết tam lỏng mở; 1 liên kết đôi lỏng đóng;
+0 1 1 1 0 X 0 1 -1
+1 liên kết tam lỏng mở; 1 liên kết đơn lỏng đóng;
+0 1 1 1 0 X 0 -1
+1 liên kết tam lỏng mở; 1 lỏng đóng;
+0 1 1 1 0 X 1 0
+1 liên kết tam lỏng mở; 1 liên kết đơn chặt mở;
+0 1 1 1 0 X 1 1 0
+1 liên kết tam lỏng mở; 1 liên kết đôi chặt mở;
+0 1 1 1 0 X 1 1 1 0
+1 liên kết tam lỏng mở; 1 liên kết tam chặt mở;
+0 1 1 1 0 X 1 1 1 1 0
+1 liên kết tam lỏng mở; Win;
+0 1 1 1 0 X 1 1 1 1 -1
+1 liên kết tam lỏng mở; Win;
+0 1 1 1 0 X 1 1 1 -1
+1 liên kết tam lỏng mở; 1 liên kết tam chặt đóng;
+0 1 1 1 0 X 1 1 -1
+1 liên kết tam lỏng mở; 1 liên kết đôi chặt đóng;
+0 1 1 1 0 X 1 -1
+1 liên kết tam lỏng mở; 1 liên kết đơn chặt đóng;
+0 1 1 1 0 X -1
+1 liên kết tam lỏng mở; 1 chặt đóng;
+0 1 1 1 1 0 X 0 0
+Win nhưng không xét; 1 lỏng mở;
+0 1 1 1 1 0 X 0 1 0
+Win nhưng không xét; 1 liên kết đơn lỏng mở;
+0 1 1 1 1 0 X 0 1 1 0
+Win nhưng không xét; 1 liên kết đôi lỏng mở;
+0 1 1 1 1 0 X 0 1 1 1 0
+Win nhưng không xét; 1 liên kết tam lỏng mở;
+0 1 1 1 1 0 X 0 1 1 1 1 0
+Win nhưng không xét; Win nhưng không xét;
+0 1 1 1 1 0 X 0 1 1 1 1 -1
+Win nhưng không xét; Win nhưng không xét;
+0 1 1 1 1 0 X 0 1 1 1 -1
+Win nhưng không xét; 1 liên kết tam lỏng đóng;
+0 1 1 1 1 0 X 0 1 1 -1
+Win nhưng không xét; 1 liên kết đôi lỏng đóng;
+0 1 1 1 1 0 X 0 1 -1
+Win nhưng không xét; 1 liên kết đơn lỏng đóng;
+0 1 1 1 1 0 X 0 -1
+Win nhưng không xét; 1 lỏng đóng;
+0 1 1 1 1 0 X 1 0
+Win nhưng không xét; 1 liên kết đơn chặt mở;
+0 1 1 1 1 0 X 1 1 0
+Win nhưng không xét; 1 liên kết đôi chặt mở;
+0 1 1 1 1 0 X 1 1 1 0
+Win nhưng không xét; 1 liên kết tam chặt mở;
+0 1 1 1 1 0 X 1 1 1 1 0
+Win nhưng không xét; Win;
+0 1 1 1 1 0 X 1 1 1 1 -1
+Win nhưng không xét; Win;
+0 1 1 1 1 0 X 1 1 1 -1
+Win nhưng không xét; 1 liên kết tam chặt đóng;
+0 1 1 1 1 0 X 1 1 -1
+Win nhưng không xét; 1 liên kết đôi chặt đóng;
+0 1 1 1 1 0 X 1 -1
+Win nhưng không xét; 1 liên kết đơn chặt đóng;
+0 1 1 1 1 0 X -1
+Win nhưng không xét; 1 chặt đóng;
+-1 1 1 1 1 0 X 0 0
+Win nhưng không xét; 1 lỏng mở;
+-1 1 1 1 1 0 X 0 1 0
+Win nhưng không xét; 1 liên kết đơn lỏng mở;
+-1 1 1 1 1 0 X 0 1 1 0
+Win nhưng không xét; 1 liên kết đôi lỏng mở;
+-1 1 1 1 1 0 X 0 1 1 1 0
+Win nhưng không xét; 1 liên kết tam lỏng mở;
+-1 1 1 1 1 0 X 0 1 1 1 1 0
+Win nhưng không xét; Win nhưng không xét;
+-1 1 1 1 1 0 X 0 1 1 1 1 -1
+Win nhưng không xét; Win nhưng không xét;
+-1 1 1 1 1 0 X 0 1 1 1 -1
+Win nhưng không xét; 1 liên kết tam lỏng đóng;
+-1 1 1 1 1 0 X 0 1 1 -1
+Win nhưng không xét; 1 liên kết đôi lỏng đóng;
+-1 1 1 1 1 0 X 0 1 -1
+Win nhưng không xét; 1 liên kết đơn lỏng đóng;
+-1 1 1 1 1 0 X 0 -1
+Win nhưng không xét; 1 lỏng đóng;
+-1 1 1 1 1 0 X 1 0
+Win nhưng không xét; 1 liên kết đơn chặt mở;
+-1 1 1 1 1 0 X 1 1 0
+Win nhưng không xét; 1 liên kết đôi chặt mở;
+-1 1 1 1 1 0 X 1 1 1 0
+Win nhưng không xét; 1 liên kết tam chặt mở;
+-1 1 1 1 1 0 X 1 1 1 1 0
+Win nhưng không xét; Win;
+-1 1 1 1 1 0 X 1 1 1 1 -1
+Win nhưng không xét; Win;
+-1 1 1 1 1 0 X 1 1 1 -1
+Win nhưng không xét; 1 liên kết tam chặt đóng;
+-1 1 1 1 1 0 X 1 1 -1
+Win nhưng không xét; 1 liên kết đôi chặt đóng;
+-1 1 1 1 1 0 X 1 -1
+Win nhưng không xét; 1 liên kết đơn chặt đóng;
+-1 1 1 1 1 0 X -1
+Win nhưng không xét; 1 chặt đóng;
+-1 1 1 1 0 X 0 0
+1 liên kết tam lỏng đóng; 1 lỏng mở;
+-1 1 1 1 0 X 0 1 0
+1 liên kết tam lỏng đóng; 1 liên kết đơn lỏng mở;
+-1 1 1 1 0 X 0 1 1 0
+1 liên kết tam lỏng đóng; 1 liên kết đôi lỏng mở;
+-1 1 1 1 0 X 0 1 1 1 0
+1 liên kết tam lỏng đóng; 1 liên kết tam lỏng mở;
+-1 1 1 1 0 X 0 1 1 1 1 0
+1 liên kết tam lỏng đóng; Win nhưng không xét;
+-1 1 1 1 0 X 0 1 1 1 1 -1
+1 liên kết tam lỏng đóng; Win nhưng không xét;
+-1 1 1 1 0 X 0 1 1 1 -1
+1 liên kết tam lỏng đóng; 1 liên kết tam lỏng đóng;
+-1 1 1 1 0 X 0 1 1 -1
+1 liên kết tam lỏng đóng; 1 liên kết đôi lỏng đóng;
+-1 1 1 1 0 X 0 1 -1
+1 liên kết tam lỏng đóng; 1 liên kết đơn lỏng đóng;
+-1 1 1 1 0 X 0 -1
+1 liên kết tam lỏng đóng; 1 lỏng đóng;
+-1 1 1 1 0 X 1 0
+1 liên kết tam lỏng đóng; 1 liên kết đơn chặt mở;
+-1 1 1 1 0 X 1 1 0
+1 liên kết tam lỏng đóng; 1 liên kết đôi chặt mở;
+-1 1 1 1 0 X 1 1 1 0
+1 liên kết tam lỏng đóng; 1 liên kết tam chặt mở;
+-1 1 1 1 0 X 1 1 1 1 0
+1 liên kết tam lỏng đóng; Win;
+-1 1 1 1 0 X 1 1 1 1 -1
+1 liên kết tam lỏng đóng; Win;
+-1 1 1 1 0 X 1 1 1 -1
+1 liên kết tam lỏng đóng; 1 liên kết tam chặt đóng;
+-1 1 1 1 0 X 1 1 -1
+1 liên kết tam lỏng đóng; 1 liên kết đôi chặt đóng;
+-1 1 1 1 0 X 1 -1
+1 liên kết tam lỏng đóng; 1 liên kết đơn chặt đóng;
+-1 1 1 1 0 X -1
+1 liên kết tam lỏng đóng; 1 chặt đóng;
+-1 1 1 0 X 0 0
+1 liên kết đôi lỏng đóng; 1 lỏng mở;
+-1 1 1 0 X 0 1 0
+1 liên kết đôi lỏng đóng; 1 liên kết đơn lỏng mở;
+-1 1 1 0 X 0 1 1 0
+1 liên kết đôi lỏng đóng; 1 liên kết đôi lỏng mở;
+-1 1 1 0 X 0 1 1 1 0
+1 liên kết đôi lỏng đóng; 1 liên kết tam lỏng mở;
+-1 1 1 0 X 0 1 1 1 1 0
+1 liên kết đôi lỏng đóng; Win nhưng không xét;
+-1 1 1 0 X 0 1 1 1 1 -1
+1 liên kết đôi lỏng đóng; Win nhưng không xét;
+-1 1 1 0 X 0 1 1 1 -1
+1 liên kết đôi lỏng đóng; 1 liên kết tam lỏng đóng;
+-1 1 1 0 X 0 1 1 -1
+1 liên kết đôi lỏng đóng; 1 liên kết đôi lỏng đóng;
+-1 1 1 0 X 0 1 -1
+1 liên kết đôi lỏng đóng; 1 liên kết đơn lỏng đóng;
+-1 1 1 0 X 0 -1
+1 liên kết đôi lỏng đóng; 1 lỏng đóng;
+-1 1 1 0 X 1 0
+1 liên kết đôi lỏng đóng; 1 liên kết đơn chặt mở;
+-1 1 1 0 X 1 1 0
+1 liên kết đôi lỏng đóng; 1 liên kết đôi chặt mở;
+-1 1 1 0 X 1 1 1 0
+1 liên kết đôi lỏng đóng; 1 liên kết tam chặt mở;
+-1 1 1 0 X 1 1 1 1 0
+1 liên kết đôi lỏng đóng; Win;
+-1 1 1 0 X 1 1 1 1 -1
+1 liên kết đôi lỏng đóng; Win;
+-1 1 1 0 X 1 1 1 -1
+1 liên kết đôi lỏng đóng; 1 liên kết tam chặt đóng;
+-1 1 1 0 X 1 1 -1
+1 liên kết đôi lỏng đóng; 1 liên kết đôi chặt đóng;
+-1 1 1 0 X 1 -1
+1 liên kết đôi lỏng đóng; 1 liên kết đơn chặt đóng;
+-1 1 1 0 X -1
+1 liên kết đôi lỏng đóng; 1 chặt đóng;
+-1 1 0 X 0 0
+1 liên kết đơn lỏng đóng; 1 lỏng mở;
+-1 1 0 X 0 1 0
+1 liên kết đơn lỏng đóng; 1 liên kết đơn lỏng mở;
+-1 1 0 X 0 1 1 0
+1 liên kết đơn lỏng đóng; 1 liên kết đôi lỏng mở;
+-1 1 0 X 0 1 1 1 0
+1 liên kết đơn lỏng đóng; 1 liên kết tam lỏng mở;
+-1 1 0 X 0 1 1 1 1 0
+1 liên kết đơn lỏng đóng; Win nhưng không xét;
+-1 1 0 X 0 1 1 1 1 -1
+1 liên kết đơn lỏng đóng; Win nhưng không xét;
+-1 1 0 X 0 1 1 1 -1
+1 liên kết đơn lỏng đóng; 1 liên kết tam lỏng đóng;
+-1 1 0 X 0 1 1 -1
+1 liên kết đơn lỏng đóng; 1 liên kết đôi lỏng đóng;
+-1 1 0 X 0 1 -1
+1 liên kết đơn lỏng đóng; 1 liên kết đơn lỏng đóng;
+-1 1 0 X 0 -1
+1 liên kết đơn lỏng đóng; 1 lỏng đóng;
+-1 1 0 X 1 0
+1 liên kết đơn lỏng đóng; 1 liên kết đơn chặt mở;
+-1 1 0 X 1 1 0
+1 liên kết đơn lỏng đóng; 1 liên kết đôi chặt mở;
+-1 1 0 X 1 1 1 0
+1 liên kết đơn lỏng đóng; 1 liên kết tam chặt mở;
+-1 1 0 X 1 1 1 1 0
+1 liên kết đơn lỏng đóng; Win;
+-1 1 0 X 1 1 1 1 -1
+1 liên kết đơn lỏng đóng; Win;
+-1 1 0 X 1 1 1 -1
+1 liên kết đơn lỏng đóng; 1 liên kết tam chặt đóng;
+-1 1 0 X 1 1 -1
+1 liên kết đơn lỏng đóng; 1 liên kết đôi chặt đóng;
+-1 1 0 X 1 -1
+1 liên kết đơn lỏng đóng; 1 liên kết đơn chặt đóng;
+-1 1 0 X -1
+1 liên kết đơn lỏng đóng; 1 chặt đóng;
+-1 0 X 0 0
+1 lỏng đóng; 1 lỏng mở;
+-1 0 X 0 1 0
+1 lỏng đóng; 1 liên kết đơn lỏng mở;
+-1 0 X 0 1 1 0
+1 lỏng đóng; 1 liên kết đôi lỏng mở;
+-1 0 X 0 1 1 1 0
+1 lỏng đóng; 1 liên kết tam lỏng mở;
+-1 0 X 0 1 1 1 1 0
+1 lỏng đóng; Win nhưng không xét;
+-1 0 X 0 1 1 1 1 -1
+1 lỏng đóng; Win nhưng không xét;
+-1 0 X 0 1 1 1 -1
+1 lỏng đóng; 1 liên kết tam lỏng đóng;
+-1 0 X 0 1 1 -1
+1 lỏng đóng; 1 liên kết đôi lỏng đóng;
+-1 0 X 0 1 -1
+1 lỏng đóng; 1 liên kết đơn lỏng đóng;
+-1 0 X 0 -1
+1 lỏng đóng; 1 lỏng đóng;
+-1 0 X 1 0
+1 lỏng đóng; 1 liên kết đơn chặt mở;
+-1 0 X 1 1 0
+1 lỏng đóng; 1 liên kết đôi chặt mở;
+-1 0 X 1 1 1 0
+1 lỏng đóng; 1 liên kết tam chặt mở;
+-1 0 X 1 1 1 1 0
+1 lỏng đóng; Win;
+-1 0 X 1 1 1 1 -1
+1 lỏng đóng; Win;
+-1 0 X 1 1 1 -1
+1 lỏng đóng; 1 liên kết tam chặt đóng;
+-1 0 X 1 1 -1
+1 lỏng đóng; 1 liên kết đôi chặt đóng;
+-1 0 X 1 -1
+1 lỏng đóng; 1 liên kết đơn chặt đóng;
+-1 0 X -1
+1 lỏng đóng; 1 chặt đóng;
+0 1 X 0 0
+1 liên kết đơn chặt mở; 1 lỏng mở;
+0 1 X 0 1 0
+1 liên kết đơn chặt mở; 1 liên kết đơn lỏng mở;
+0 1 X 0 1 1 0
+1 liên kết đơn chặt mở; 1 liên kết đôi lỏng mở;
+0 1 X 0 1 1 1 0
+1 liên kết đơn chặt mở; 1 liên kết tam lỏng mở;
+0 1 X 0 1 1 1 1 0
+1 liên kết đơn chặt mở; Win nhưng không xét;
+0 1 X 0 1 1 1 1 -1
+1 liên kết đơn chặt mở; Win nhưng không xét;
+0 1 X 0 1 1 1 -1
+1 liên kết đơn chặt mở; 1 liên kết tam lỏng đóng;
+0 1 X 0 1 1 -1
+1 liên kết đơn chặt mở; 1 liên kết đôi lỏng đóng;
+0 1 X 0 1 -1
+1 liên kết đơn chặt mở; 1 liên kết đơn lỏng đóng;
+0 1 X 0 -1
+1 liên kết đơn chặt mở; 1 lỏng đóng;
+0 1 X 1 0
+1 liên kết đơn chặt mở; 1 liên kết đơn chặt mở;
+0 1 X 1 1 0
+1 liên kết đơn chặt mở; 1 liên kết đôi chặt mở;
+0 1 X 1 1 1 0
+1 liên kết đơn chặt mở; 1 liên kết tam chặt mở;
+0 1 X 1 1 1 1 0
+1 liên kết đơn chặt mở; Win;
+0 1 X 1 1 1 1 -1
+1 liên kết đơn chặt mở; Win;
+0 1 X 1 1 1 -1
+1 liên kết đơn chặt mở; 1 liên kết tam chặt đóng;
+0 1 X 1 1 -1
+1 liên kết đơn chặt mở; 1 liên kết đôi chặt đóng;
+0 1 X 1 -1
+1 liên kết đơn chặt mở; 1 liên kết đơn chặt đóng;
+0 1 X -1
+1 liên kết đơn chặt mở; 1 chặt đóng;
+0 1 1 X 0 0
+1 liên kết đôi chặt mở; 1 lỏng mở;
+0 1 1 X 0 1 0
+1 liên kết đôi chặt mở; 1 liên kết đơn lỏng mở;
+0 1 1 X 0 1 1 0
+1 liên kết đôi chặt mở; 1 liên kết đôi lỏng mở;
+0 1 1 X 0 1 1 1 0
+1 liên kết đôi chặt mở; 1 liên kết tam lỏng mở;
+0 1 1 X 0 1 1 1 1 0
+1 liên kết đôi chặt mở; Win nhưng không xét;
+0 1 1 X 0 1 1 1 1 -1
+1 liên kết đôi chặt mở; Win nhưng không xét;
+0 1 1 X 0 1 1 1 -1
+1 liên kết đôi chặt mở; 1 liên kết tam lỏng đóng;
+0 1 1 X 0 1 1 -1
+1 liên kết đôi chặt mở; 1 liên kết đôi lỏng đóng;
+0 1 1 X 0 1 -1
+1 liên kết đôi chặt mở; 1 liên kết đơn lỏng đóng;
+0 1 1 X 0 -1
+1 liên kết đôi chặt mở; 1 lỏng đóng;
+0 1 1 X 1 0
+1 liên kết đôi chặt mở; 1 liên kết đơn chặt mở;
+0 1 1 X 1 1 0
+1 liên kết đôi chặt mở; 1 liên kết đôi chặt mở;
+0 1 1 X 1 1 1 0
+1 liên kết đôi chặt mở; 1 liên kết tam chặt mở;
+0 1 1 X 1 1 1 1 0
+1 liên kết đôi chặt mở; Win;
+0 1 1 X 1 1 1 1 -1
+1 liên kết đôi chặt mở; Win;
+0 1 1 X 1 1 1 -1
+1 liên kết đôi chặt mở; 1 liên kết tam chặt đóng;
+0 1 1 X 1 1 -1
+1 liên kết đôi chặt mở; 1 liên kết đôi chặt đóng;
+0 1 1 X 1 -1
+1 liên kết đôi chặt mở; 1 liên kết đơn chặt đóng;
+0 1 1 X -1
+1 liên kết đôi chặt mở; 1 chặt đóng;
+0 1 1 1 X 0 0
+1 liên kết tam chặt mở; 1 lỏng mở;
+0 1 1 1 X 0 1 0
+1 liên kết tam chặt mở; 1 liên kết đơn lỏng mở;
+0 1 1 1 X 0 1 1 0
+1 liên kết tam chặt mở; 1 liên kết đôi lỏng mở;
+0 1 1 1 X 0 1 1 1 0
+1 liên kết tam chặt mở; 1 liên kết tam lỏng mở;
+0 1 1 1 X 0 1 1 1 1 0
+1 liên kết tam chặt mở; Win nhưng không xét;
+0 1 1 1 X 0 1 1 1 1 -1
+1 liên kết tam chặt mở; Win nhưng không xét;
+0 1 1 1 X 0 1 1 1 -1
+1 liên kết tam chặt mở; 1 liên kết tam lỏng đóng;
+0 1 1 1 X 0 1 1 -1
+1 liên kết tam chặt mở; 1 liên kết đôi lỏng đóng;
+0 1 1 1 X 0 1 -1
+1 liên kết tam chặt mở; 1 liên kết đơn lỏng đóng;
+0 1 1 1 X 0 -1
+1 liên kết tam chặt mở; 1 lỏng đóng;
+0 1 1 1 X 1 0
+1 liên kết tam chặt mở; 1 liên kết đơn chặt mở;
+0 1 1 1 X 1 1 0
+1 liên kết tam chặt mở; 1 liên kết đôi chặt mở;
+0 1 1 1 X 1 1 1 0
+1 liên kết tam chặt mở; 1 liên kết tam chặt mở;
+0 1 1 1 X 1 1 1 1 0
+1 liên kết tam chặt mở; Win;
+0 1 1 1 X 1 1 1 1 -1
+1 liên kết tam chặt mở; Win;
+0 1 1 1 X 1 1 1 -1
+1 liên kết tam chặt mở; 1 liên kết tam chặt đóng;
+0 1 1 1 X 1 1 -1
+1 liên kết tam chặt mở; 1 liên kết đôi chặt đóng;
+0 1 1 1 X 1 -1
+1 liên kết tam chặt mở; 1 liên kết đơn chặt đóng;
+0 1 1 1 X -1
+1 liên kết tam chặt mở; 1 chặt đóng;
+0 1 1 1 1 X 0 0
+Win; 1 lỏng mở;
+0 1 1 1 1 X 0 1 0
+Win; 1 liên kết đơn lỏng mở;
+0 1 1 1 1 X 0 1 1 0
+Win; 1 liên kết đôi lỏng mở;
+0 1 1 1 1 X 0 1 1 1 0
+Win; 1 liên kết tam lỏng mở;
+0 1 1 1 1 X 0 1 1 1 1 0
+Win; Win nhưng không xét;
+0 1 1 1 1 X 0 1 1 1 1 -1
+Win; Win nhưng không xét;
+0 1 1 1 1 X 0 1 1 1 -1
+Win; 1 liên kết tam lỏng đóng;
+0 1 1 1 1 X 0 1 1 -1
+Win; 1 liên kết đôi lỏng đóng;
+0 1 1 1 1 X 0 1 -1
+Win; 1 liên kết đơn lỏng đóng;
+0 1 1 1 1 X 0 -1
+Win; 1 lỏng đóng;
+0 1 1 1 1 X 1 0
+Win; 1 liên kết đơn chặt mở;
+0 1 1 1 1 X 1 1 0
+Win; 1 liên kết đôi chặt mở;
+0 1 1 1 1 X 1 1 1 0
+Win; 1 liên kết tam chặt mở;
+0 1 1 1 1 X 1 1 1 1 0
+Win; Win;
+0 1 1 1 1 X 1 1 1 1 -1
+Win; Win;
+0 1 1 1 1 X 1 1 1 -1
+Win; 1 liên kết tam chặt đóng;
+0 1 1 1 1 X 1 1 -1
+Win; 1 liên kết đôi chặt đóng;
+0 1 1 1 1 X 1 -1
+Win; 1 liên kết đơn chặt đóng;
+0 1 1 1 1 X -1
+Win; 1 chặt đóng;
+-1 1 1 1 1 X 0 0
+Win; 1 lỏng mở;
+-1 1 1 1 1 X 0 1 0
+Win; 1 liên kết đơn lỏng mở;
+-1 1 1 1 1 X 0 1 1 0
+Win; 1 liên kết đôi lỏng mở;
+-1 1 1 1 1 X 0 1 1 1 0
+Win; 1 liên kết tam lỏng mở;
+-1 1 1 1 1 X 0 1 1 1 1 0
+Win; Win nhưng không xét;
+-1 1 1 1 1 X 0 1 1 1 1 -1
+Win; Win nhưng không xét;
+-1 1 1 1 1 X 0 1 1 1 -1
+Win; 1 liên kết tam lỏng đóng;
+-1 1 1 1 1 X 0 1 1 -1
+Win; 1 liên kết đôi lỏng đóng;
+-1 1 1 1 1 X 0 1 -1
+Win; 1 liên kết đơn lỏng đóng;
+-1 1 1 1 1 X 0 -1
+Win; 1 lỏng đóng;
+-1 1 1 1 1 X 1 0
+Win; 1 liên kết đơn chặt mở;
+-1 1 1 1 1 X 1 1 0
+Win; 1 liên kết đôi chặt mở;
+-1 1 1 1 1 X 1 1 1 0
+Win; 1 liên kết tam chặt mở;
+-1 1 1 1 1 X 1 1 1 1 0
+Win; Win;
+-1 1 1 1 1 X 1 1 1 1 -1
+Win; Win;
+-1 1 1 1 1 X 1 1 1 -1
+Win; 1 liên kết tam chặt đóng;
+-1 1 1 1 1 X 1 1 -1
+Win; 1 liên kết đôi chặt đóng;
+-1 1 1 1 1 X 1 -1
+Win; 1 liên kết đơn chặt đóng;
+-1 1 1 1 1 X -1
+Win; 1 chặt đóng;
+-1 1 1 1 X 0 0
+1 liên kết tam chặt đóng; 1 lỏng mở;
+-1 1 1 1 X 0 1 0
+1 liên kết tam chặt đóng; 1 liên kết đơn lỏng mở;
+-1 1 1 1 X 0 1 1 0
+1 liên kết tam chặt đóng; 1 liên kết đôi lỏng mở;
+-1 1 1 1 X 0 1 1 1 0
+1 liên kết tam chặt đóng; 1 liên kết tam lỏng mở;
+-1 1 1 1 X 0 1 1 1 1 0
+1 liên kết tam chặt đóng; Win nhưng không xét;
+-1 1 1 1 X 0 1 1 1 1 -1
+1 liên kết tam chặt đóng; Win nhưng không xét;
+-1 1 1 1 X 0 1 1 1 -1
+1 liên kết tam chặt đóng; 1 liên kết tam lỏng đóng;
+-1 1 1 1 X 0 1 1 -1
+1 liên kết tam chặt đóng; 1 liên kết đôi lỏng đóng;
+-1 1 1 1 X 0 1 -1
+1 liên kết tam chặt đóng; 1 liên kết đơn lỏng đóng;
+-1 1 1 1 X 0 -1
+1 liên kết tam chặt đóng; 1 lỏng đóng;
+-1 1 1 1 X 1 0
+1 liên kết tam chặt đóng; 1 liên kết đơn chặt mở;
+-1 1 1 1 X 1 1 0
+1 liên kết tam chặt đóng; 1 liên kết đôi chặt mở;
+-1 1 1 1 X 1 1 1 0
+1 liên kết tam chặt đóng; 1 liên kết tam chặt mở;
+-1 1 1 1 X 1 1 1 1 0
+1 liên kết tam chặt đóng; Win;
+-1 1 1 1 X 1 1 1 1 -1
+1 liên kết tam chặt đóng; Win;
+-1 1 1 1 X 1 1 1 -1
+1 liên kết tam chặt đóng; 1 liên kết tam chặt đóng;
+-1 1 1 1 X 1 1 -1
+1 liên kết tam chặt đóng; 1 liên kết đôi chặt đóng;
+-1 1 1 1 X 1 -1
+1 liên kết tam chặt đóng; 1 liên kết đơn chặt đóng;
+-1 1 1 1 X -1
+1 liên kết tam chặt đóng; 1 chặt đóng;
+-1 1 1 X 0 0
+1 liên kết đôi chặt đóng; 1 lỏng mở;
+-1 1 1 X 0 1 0
+1 liên kết đôi chặt đóng; 1 liên kết đơn lỏng mở;
+-1 1 1 X 0 1 1 0
+1 liên kết đôi chặt đóng; 1 liên kết đôi lỏng mở;
+-1 1 1 X 0 1 1 1 0
+1 liên kết đôi chặt đóng; 1 liên kết tam lỏng mở;
+-1 1 1 X 0 1 1 1 1 0
+1 liên kết đôi chặt đóng; Win nhưng không xét;
+-1 1 1 X 0 1 1 1 1 -1
+1 liên kết đôi chặt đóng; Win nhưng không xét;
+-1 1 1 X 0 1 1 1 -1
+1 liên kết đôi chặt đóng; 1 liên kết tam lỏng đóng;
+-1 1 1 X 0 1 1 -1
+1 liên kết đôi chặt đóng; 1 liên kết đôi lỏng đóng;
+-1 1 1 X 0 1 -1
+1 liên kết đôi chặt đóng; 1 liên kết đơn lỏng đóng;
+-1 1 1 X 0 -1
+1 liên kết đôi chặt đóng; 1 lỏng đóng;
+-1 1 1 X 1 0
+1 liên kết đôi chặt đóng; 1 liên kết đơn chặt mở;
+-1 1 1 X 1 1 0
+1 liên kết đôi chặt đóng; 1 liên kết đôi chặt mở;
+-1 1 1 X 1 1 1 0
+1 liên kết đôi chặt đóng; 1 liên kết tam chặt mở;
+-1 1 1 X 1 1 1 1 0
+1 liên kết đôi chặt đóng; Win;
+-1 1 1 X 1 1 1 1 -1
+1 liên kết đôi chặt đóng; Win;
+-1 1 1 X 1 1 1 -1
+1 liên kết đôi chặt đóng; 1 liên kết tam chặt đóng;
+-1 1 1 X 1 1 -1
+1 liên kết đôi chặt đóng; 1 liên kết đôi chặt đóng;
+-1 1 1 X 1 -1
+1 liên kết đôi chặt đóng; 1 liên kết đơn chặt đóng;
+-1 1 1 X -1
+1 liên kết đôi chặt đóng; 1 chặt đóng;
+-1 1 X 0 0
+1 liên kết đơn chặt đóng; 1 lỏng mở;
+-1 1 X 0 1 0
+1 liên kết đơn chặt đóng; 1 liên kết đơn lỏng mở;
+-1 1 X 0 1 1 0
+1 liên kết đơn chặt đóng; 1 liên kết đôi lỏng mở;
+-1 1 X 0 1 1 1 0
+1 liên kết đơn chặt đóng; 1 liên kết tam lỏng mở;
+-1 1 X 0 1 1 1 1 0
+1 liên kết đơn chặt đóng; Win nhưng không xét;
+-1 1 X 0 1 1 1 1 -1
+1 liên kết đơn chặt đóng; Win nhưng không xét;
+-1 1 X 0 1 1 1 -1
+1 liên kết đơn chặt đóng; 1 liên kết tam lỏng đóng;
+-1 1 X 0 1 1 -1
+1 liên kết đơn chặt đóng; 1 liên kết đôi lỏng đóng;
+-1 1 X 0 1 -1
+1 liên kết đơn chặt đóng; 1 liên kết đơn lỏng đóng;
+-1 1 X 0 -1
+1 liên kết đơn chặt đóng; 1 lỏng đóng;
+-1 1 X 1 0
+1 liên kết đơn chặt đóng; 1 liên kết đơn chặt mở;
+-1 1 X 1 1 0
+1 liên kết đơn chặt đóng; 1 liên kết đôi chặt mở;
+-1 1 X 1 1 1 0
+1 liên kết đơn chặt đóng; 1 liên kết tam chặt mở;
+-1 1 X 1 1 1 1 0
+1 liên kết đơn chặt đóng; Win;
+-1 1 X 1 1 1 1 -1
+1 liên kết đơn chặt đóng; Win;
+-1 1 X 1 1 1 -1
+1 liên kết đơn chặt đóng; 1 liên kết tam chặt đóng;
+-1 1 X 1 1 -1
+1 liên kết đơn chặt đóng; 1 liên kết đôi chặt đóng;
+-1 1 X 1 -1
+1 liên kết đơn chặt đóng; 1 liên kết đơn chặt đóng;
+-1 1 X -1
+1 liên kết đơn chặt đóng; 1 chặt đóng;
+-1 X 0 0
+1 chặt đóng; 1 lỏng mở;
+-1 X 0 1 0
+1 chặt đóng; 1 liên kết đơn lỏng mở;
+-1 X 0 1 1 0
+1 chặt đóng; 1 liên kết đôi lỏng mở;
+-1 X 0 1 1 1 0
+1 chặt đóng; 1 liên kết tam lỏng mở;
+-1 X 0 1 1 1 1 0
+1 chặt đóng; Win nhưng không xét;
+-1 X 0 1 1 1 1 -1
+1 chặt đóng; Win nhưng không xét;
+-1 X 0 1 1 1 -1
+1 chặt đóng; 1 liên kết tam lỏng đóng;
+-1 X 0 1 1 -1
+1 chặt đóng; 1 liên kết đôi lỏng đóng;
+-1 X 0 1 -1
+1 chặt đóng; 1 liên kết đơn lỏng đóng;
+-1 X 0 -1
+1 chặt đóng; 1 lỏng đóng;
+-1 X 1 0
+1 chặt đóng; 1 liên kết đơn chặt mở;
+-1 X 1 1 0
+1 chặt đóng; 1 liên kết đôi chặt mở;
+-1 X 1 1 1 0
+1 chặt đóng; 1 liên kết tam chặt mở;
+-1 X 1 1 1 1 0
+1 chặt đóng; Win;
+-1 X 1 1 1 1 -1
+1 chặt đóng; Win;
+-1 X 1 1 1 -1
+1 chặt đóng; 1 liên kết tam chặt đóng;
+-1 X 1 1 -1
+1 chặt đóng; 1 liên kết đôi chặt đóng;
+-1 X 1 -1
+1 chặt đóng; 1 liên kết đơn chặt đóng;
+-1 X -1
+1 chặt đóng; 1 chặt đóng;
