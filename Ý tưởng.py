@@ -1,5 +1,55 @@
 
 
+- Đầu tiên, sorry mọi người, game này phức tạp hơn tôi nghĩ rất rất nhiều
+- Thứ 2, mình vẫn đang code bằng python, rất xin lỗi mọi người
+
+- Đây là những thứ mình đã làm được: 
+	+ Máy đã miễn cưỡng đánh trả
+	+ Nhưng còn rất "ngu"
+
+- Chi tiết thì:
+Trường hợp đánh X vào 1 giá trị, và những vị trí Y đã có quân được đánh, nó sẽ sinh ra rất rất nhiều trường hợp
+
+	Trong trường hợp này khi đánh X vào tọa độ (8,11)	
+														các ô mà nó ảnh hưởng tới sẽ là  (Y)
+			1 2 3 4 5 6 7 8 9 0 1 2 3 4 5				1 2 3 4 5 6 7 8 9 0 1 2 3 4 5				
+			. . . . . . . . . . . . . . . 1				. . . . . . . . . . . . . . . 1 			
+			. . . . . . . . . . . . . . . 2				. . . . . . . . . . . . . . . 2 			
+			. . . . . . . . . . . . . . . 3				. . . . . . . . . . . . . . . 3
+			. . . . . . . . . . . . . . . 4				. . . . . . Y . . . . . . . . 4
+			. . . . . . . X . . . . . . . 5				. . . . . . . X . . . . . . . 5
+			. . . . . . . . X . . . . . . 6				. . . . . . . . X . Y . . . . 6
+			. . . . . . . . . . . O . . . 7				. . . . . . . . . Y Y O . . . 7
+			. . . . . . . . . . X . . . . 8				. . . . . . . . Y Y - Y Y . . 8
+			. . . . . . . . . X X . . . . 9				. . . . . . . . . X X Y . . . 9
+			. . . . . . . . X . . . . . . 0				. . . . . . . . X . Y . Y . . 0
+			. . . . . . . O . . X . . . . 1				. . . . . . . O . . . . . . . 1
+			. . . . . . . . . . . . . . . 2				. . . . . . . . . . . . . . . 2
+			. . . . . . . . . . . . . . . 3				. . . . . . . . . . . . . . . 3
+			. . . . . . . . . . . . . . . 4				. . . . . . . . . . . . . . . 4
+			. . . . . . . . . . . . . . . 5				. . . . . . . . . . . . . . . 5
+    												#Code của tôi mới chỉ lấy ra 16 vị trí này 
+
+- Với mỗi trường hợp được sinh ra, ta sẽ đi vào ô "Y" và tính toán lại điểm của ô đó
+- Vấn đề là, mỗi ô "Y" này lại có 8 hướng
+-> Tôi chia 8 hướng của ô "Y" thành 1 2 3 4 5 6 7 8, với 4 đường 1->5 2->6 3->7 4->8
+- Mỗi lần đi vào ô "Y" tôi cập nhật lại điểm của 1 đường dựa vào gốc "X" ban đầu
+rồi cộng giá trị 4 đường lại để ra tổng điểm của ô "Y"   -> cách này thỉnh thoảng khá là sai (nhưng đúng trong kha khá trường hợp)
+
+- Với 1 đường (5->1; 6->2; 7->3; 8->4) lại có rất nhiều trường hợp khác nhau, tất cả là 19^2 -> 722 trường hợp (với 19 trường hợp mỗi bên)
+-> Nếu như tính được cả 722 trường hợp này, "Gán nhãn" cho chúng (xem trường hợp nào có điểm là bao nhiêu, trong file G.txt và BangDiem.txt), 
+thì bảng đánh giá sẽ chính xác hơn 
+
+- Hiện tại, tôi đã "Gán nhãn" nhưng chỉ cho 19 trường hợp mỗi bên, rồi cộng 2 bên lại để ra giá trị của 1 đường 
+	-> bảng đánh giá ở mức trung bình yếu
+
+- Chưa áp dụng thêm thật toán tính kiếm  
+
+
+
+####################################################################################################################################################################################
+
+
 @ AI chơi cờ caro - Phiên bản đơn giản
 
 - Đầu tiên là biểu diễn bàn cờ:   Bàn cờ 19x19 với các ô chưa đánh là ".", "X" và "O"
