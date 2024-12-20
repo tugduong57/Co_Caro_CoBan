@@ -105,7 +105,6 @@ def draw_board():
     for row in range(1, GRID_SIZE):
         pygame.draw.line(screen, LINE_COLOR, (0, row * SQUARE_SIZE) , (WINDOW_WIDTH, row * SQUARE_SIZE)  , 3); pygame.draw.line(screen, LINE_COLOR, (row * SQUARE_SIZE, 0) , (row * SQUARE_SIZE, WINDOW_HEIGHT) , 3)
     pygame.draw.line(screen, LINE_COLOR, (0, 0 * SQUARE_SIZE), (WINDOW_WIDTH, 0* SQUARE_SIZE), 5); pygame.draw.line(screen, LINE_COLOR, (0 * SQUARE_SIZE, 0), (0 * SQUARE_SIZE, WINDOW_HEIGHT), 5); pygame.draw.line(screen, LINE_COLOR, (0, GRID_SIZE * SQUARE_SIZE-2), (WINDOW_WIDTH, GRID_SIZE* SQUARE_SIZE-2), 5); pygame.draw.line(screen, LINE_COLOR, (GRID_SIZE * SQUARE_SIZE-1, 0), (GRID_SIZE * SQUARE_SIZE-1, WINDOW_HEIGHT), 5)
-    draw_numbers()
 
 # Hàm vẽ X và O
 def draw_XO(banco):
@@ -145,11 +144,16 @@ def Update_Score(turn, x, y,dx, dy):
 
     oldScore = matrix[x][y]
     m = [Map[x][y][9],Map[x][y][10],Map[x][y][11],Map[x][y][12]]; m.sort();
-    if m[0] == "C" and m[1] == "C":
-        m[0] = ["B"]
+    if m[0] == "A":
+        e = "A"
+    elif m[0] == "B" or (m[0] == "C" and m[1] == "C"):
+        e = "B"
+    else:
+        e = m[0]
+
     # else:
     #     m = m[0]
-    Map[x][y][0] = "".join(m)
+    Map[x][y][0] = e
     newScore = Map[x][y][0];
     RemoveT(T_matrix, matrix[x][y], x, y); matrix[x][y] = newScore; AddT(T_matrix, matrix[x][y], x, y)
     RemoveT(T_Tong, ScoreTong[x][y], x, y);
@@ -216,14 +220,32 @@ def SCAN(turn, x, y):
                 break
             i += 1
 
-
+def AI_move():
+    # (x, y) = AI_move()
+    global ScorePlayer, ScoreAI, T_Ai, T_player, T_Tong, banco
+    print(T_Ai)
+    if "A" in T_Ai:                     # Thắng "ngay" được thắng luôn
+        return T_Ai["A"][0]             
+    else:                               # Nếu không thắng được luôn:
+        if "A" in T_player:                 # Chặn nước thắng "ngay" của player
+            return T_player["A"][0]
+        else:                               # Nếu đối thủ không thắng ngay được:
+            if "B" in T_Ai:                     # Tạo nước thắng "ở lượt sau" được thì tạo luôn
+                return T_Ai["B"][0]
+            else:                               # Nếu không tạo được:
+                if "B" in T_player:                 # Chặn nước thắng "ở lượt sau" của player 
+                    return T_player["B"][0]
+    # Trường hợp không còn "A" và "B" ở cả 2 
+    # -> T_Ai và T_player còn "C" "D" "E" "F" 
+    # Nước "C" "D" "E" nào là tốt nhất?? nước tạo ra A và B ??
+    return T_Tong[min(T_Tong.keys())][0]
 
 def game_loop():
     global AI, player;
     global ScorePlayer, ScoreAI, T_Ai, T_player, banco, game_over, turn, LuotAI;
     
     while True:
-        draw_board(); draw_XO(banco)
+        draw_board(); draw_XO(banco); draw_numbers()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -258,12 +280,13 @@ def game_loop():
             if event.type == KEYDOWN and LuotAI:
                 LuotAI = False;
                 if (event.key == K_SPACE):
-                    (x, y) = T_Tong[min(T_Tong.keys())][0] 
+                    #(x, y) = T_Tong[min(T_Tong.keys())][0] 
+                    (x, y) = AI_move()
                     banco[x][y] = AI; Update_Pre(x, y, AI)
                     draw_board();
                     RemoveT(T_player, ScorePlayer[x][y], x, y); RemoveT(T_Ai, ScoreAI[x][y], x, y)
                     RemoveT(T_Tong, ScoreTong[x][y], x, y)
-                    ScorePlayer[x][y] = "-1"; S coreAI[x][y] = "-1"; ScoreTong[x][y] = "-1"
+                    ScorePlayer[x][y] = "-1"; ScoreAI[x][y] = "-1"; ScoreTong[x][y] = "-1"
                     if checkWin.checkWin(banco, AI, x+1, y+1, nxn, NumberToWin) == "Win":
                         game_over = True; turn = AI;
                         break
