@@ -22,8 +22,8 @@ def RemoveT(T, value, x, y):
     if value in T:
         if (x,y) in T[value]:
             T[value].remove((x, y))
-    if T[value] == []:
-        T.pop(value)
+        if T[value] == []:
+            T.pop(value)
 
 def Update_Pre(x, y, turn):
     global pre;
@@ -120,12 +120,11 @@ def draw_XO(banco):
     elif pre[2] == "O":
         pygame.draw.circle(screen, Pre_COLOR, (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), SQUARE_SIZE // 2 - 7, 2) 
 
-def Update_Score(turn, x, y,dx, dy):
-    global player, AI, ScorePlayer, ScoreAI, ScoreTong, T_Tong, T_player, T_Ai, MapPlayer, MapAI;
+def Update_Score(banco, Map, turn, x, y,dx, dy, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong):
     if turn == player:
-        matrix = ScorePlayer; T_matrix = T_player; Map = MapPlayer
+        matrix = ScorePlayer; T_matrix = T_player
     else: # turn == AI
-        matrix = ScoreAI; T_matrix = T_Ai; Map = MapAI
+        matrix = ScoreAI; T_matrix = T_Ai
 
     if (dx, dy) in [ (1, 0), (1, -1), (0, -1), (-1, -1) ]:
         xau = Map[x][y][Direc[(dx, dy)]] + "X" + Map[x][y][Direc[(-dx, -dy)]]   
@@ -144,23 +143,23 @@ def Update_Score(turn, x, y,dx, dy):
 
     oldScore = matrix[x][y]
     m = [Map[x][y][9],Map[x][y][10],Map[x][y][11],Map[x][y][12]]; m.sort();
-    if m[0] == "A":
-        e = "A"
-    elif m[0] == "B" or (m[0] == "C" and m[1] == "C"):
-        e = "B"
-    else:
-        e = m[0]
+    if m[0] == m[1] == "C":
+        m[0] = "B"
+    elif m[0] == m[1] == "D":
+        m[0] = "C"
 
     # else:
     #     m = m[0]
-    Map[x][y][0] = e
+    Map[x][y][0] = "".join(m)
     newScore = Map[x][y][0];
     RemoveT(T_matrix, matrix[x][y], x, y); matrix[x][y] = newScore; AddT(T_matrix, matrix[x][y], x, y)
     RemoveT(T_Tong, ScoreTong[x][y], x, y);
-    ScoreTong[x][y] = min(ScorePlayer[x][y], ScoreAI[x][y])
+    # ScoreTong[x][y] = min(ScorePlayer[x][y], ScoreAI[x][y])
+    tong = ScorePlayer[x][y] + ScoreAI[x][y]; tong = list(tong); tong.sort()
+    ScoreTong[x][y] = "".join(tong[:4])
     AddT(T_Tong, ScoreTong[x][y], x, y);
 
-def Update_Map(turn, x, y, dx, dy):
+def Update_Map(banco, Map, turn, x, y, dx, dy, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong):
     canhke = []; global Direc;
     trang = 1; i = 1
     while True:
@@ -187,18 +186,14 @@ def Update_Map(turn, x, y, dx, dy):
             canhke.append("-1"); 
             break
         i += 1
-    if turn == player:
-        Map = MapPlayer
-    else: # turn == AI
-        Map = MapAI
 
     if (dx, dy) in [ (1, 0), (1, -1), (0, -1), (-1, -1) ]:
         Map[x][y][Direc[(dx, dy)]] = "".join(canhke[::-1])   
     elif (dx, dy) in [ (-1, 0),(-1, 1),  (0, 1), ( 1, 1 ) ]:
         Map[x][y][Direc[(dx, dy)]] = "".join(canhke)      
-    Update_Score(turn,x,y,dx,dy)
+    Update_Score(banco, Map, turn,x,y,dx,dy, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong)
 
-def SCAN(turn, x, y):
+def SCAN(banco, Map, turn, x, y, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong):
     global directions;
     for dx, dy in directions:
         h = []; trang = 1; i = 1
@@ -211,7 +206,7 @@ def SCAN(turn, x, y):
                         trang = 0
                 if giatri == ".":
                     trang -= 1;
-                    Update_Map(turn, new_x, new_y, -dx, -dy)
+                    Update_Map(banco, Map, turn, new_x, new_y, -dx, -dy, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong)
                     if trang == -1:
                         break
                 if giatri != turn and giatri != ".":
@@ -220,30 +215,166 @@ def SCAN(turn, x, y):
                 break
             i += 1
 
+def UuTien_move(T_Ai, T_player):
+    c = ""; d = ""
+    for a in T_Ai:
+        if a[0] == "A":        # Thắng "ngay" được THÌ thắng luôn
+            return T_Ai[a][0] 
+        if a[0] == "B":
+            c = a     
+    # Nếu không thắng được luôn:        
+    for b in T_player:                 
+        if b[0] == "A":        # Chặn nước thắng "ngay" của player             
+            return T_player[b][0]
+    # Nếu đối thủ không thắng ngay được: 
+    if c != "":                # Tạo nước thắng "ở lượt sau" được thì tạo luôn
+        return T_Ai[c][0]
+    # # Nếu không tạo được:                     
+    # if d != "":                # Chặn nước thắng "ở lượt sau" của player 
+    #     return T_player[d][0]
+    return (-1, -1)
+
+def minimax(Board, isAI, depth, Score_Player, Score_AI, Score_Tong, Tplayer, TAi, TTong, Map_Player, Map_AI, x, y):
+    if depth == 0:
+        return 0
+
+    if isAI:
+        N_o = 5
+        list_Best = []
+        T = list(TTong.keys())
+        T.sort()
+        for i in T:
+            if i[0] == "A" or i[0] == "B":
+                list_Best = TTong[i]
+                break
+            list_Best += TTong[i]
+            if len(list_Best) > N_o:
+                break
+        list_Best = list_Best[:N_o]
+
+        maxVal = float('-inf');
+        for (x, y) in list_Best:
+            Board[x][y] = AI;
+            if checkWin.checkWin(Board, AI, x+1, y+1, nxn, NumberToWin) == "Win":
+                Val = 1000000
+                Board[x][y] = "."
+                maxVal = max(Val, maxVal)
+                continue
+
+            Board1 = Board.copy();  
+            Score_Player1 = copy.deepcopy(Score_Player); Score_AI1 = copy.deepcopy(Score_AI); Score_Tong1 = copy.deepcopy(Score_Tong)
+            Tplayer1 = copy.deepcopy(Tplayer); TAi1 = copy.deepcopy(TAi); TTong1 = copy.deepcopy(TTong); 
+            Map_Player1 = copy.deepcopy(Map_Player); Map_AI1 = copy.deepcopy(Map_AI);
+            
+            RemoveT(Tplayer1, Score_Player1[x][y], x, y); RemoveT(TAi1, Score_AI1[x][y], x, y)
+            RemoveT(TTong1, Score_Tong1[x][y], x, y)
+
+            SCAN(Board1, Map_Player1, player, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
+            SCAN(Board1, Map_AI1, AI, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
+            
+            Val = minimax(Board1, False, depth-1, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1, TTong1, Map_Player1, Map_AI1, x, y)
+
+            Board[x][y] = "."
+
+            maxVal = max(Val, maxVal)
+
+        return maxVal
+
+    else:
+        N_o = 5
+        list_Best = []
+        T = list(TTong.keys())
+        T.sort()
+        for i in T:
+            if i[0] == "A" or i[0] == "B":
+                list_Best = TTong[i]
+                break
+            list_Best += TTong[i]
+            if len(list_Best) > N_o:
+                break
+        list_Best = list_Best[:N_o]
+        minVal = float('inf');
+        for (x, y) in list_Best:
+            Board[x][y] = player;
+            if checkWin.checkWin(Board, player, x+1, y+1, nxn, NumberToWin) == "Win":
+                Val = -1000000
+                Board[x][y] = "."
+                minVal = min(Val, minVal)
+                continue
+                    
+            Board1 = Board.copy();  
+            Score_Player1 = copy.deepcopy(Score_Player); Score_AI1 = copy.deepcopy(Score_AI); Score_Tong1 = copy.deepcopy(Score_Tong)
+            Tplayer1 = copy.deepcopy(Tplayer); TAi1 = copy.deepcopy(TAi); TTong1 = copy.deepcopy(TTong); 
+            Map_Player1 = copy.deepcopy(Map_Player); Map_AI1 = copy.deepcopy(Map_AI);
+            
+            RemoveT(Tplayer1, Score_Player1[x][y], x, y); RemoveT(TAi1, Score_AI1[x][y], x, y)
+            RemoveT(TTong1, Score_Tong1[x][y], x, y)
+
+            SCAN(Board1, Map_Player1, player, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
+            SCAN(Board1, Map_AI1, AI, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
+            
+            Val = minimax(Board1, True, depth-1, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1, TTong1, Map_Player1, Map_AI1, x, y)
+
+            Board[x][y] = "."
+
+            minVal = min(Val, minVal)
+
+        return minVal
+
+
+import copy
+
 def AI_move():
-    # (x, y) = AI_move()
-    global ScorePlayer, ScoreAI, T_Ai, T_player, T_Tong, banco
-    print(T_Ai)
-    if "A" in T_Ai:                     # Thắng "ngay" được thắng luôn
-        return T_Ai["A"][0]             
-    else:                               # Nếu không thắng được luôn:
-        if "A" in T_player:                 # Chặn nước thắng "ngay" của player
-            return T_player["A"][0]
-        else:                               # Nếu đối thủ không thắng ngay được:
-            if "B" in T_Ai:                     # Tạo nước thắng "ở lượt sau" được thì tạo luôn
-                return T_Ai["B"][0]
-            else:                               # Nếu không tạo được:
-                if "B" in T_player:                 # Chặn nước thắng "ở lượt sau" của player 
-                    return T_player["B"][0]
-    # Trường hợp không còn "A" và "B" ở cả 2 
-    # -> T_Ai và T_player còn "C" "D" "E" "F" 
-    # Nước "C" "D" "E" nào là tốt nhất?? nước tạo ra A và B ??
-    return T_Tong[min(T_Tong.keys())][0]
+    (x, y) = UuTien_move(T_Ai, T_player)
+    if (x, y) != (-1, -1):
+        return (x, y)
+
+    # Score_Player, Score_AI, Score_Tong, Tplayer, TAi, T_Tong, Map_Player, Map_AI
+
+    N_o = 5
+    list_Best = []
+    T = list(T_Tong.keys())
+    T.sort()
+    for i in T:
+        if i[0] == "B":
+            list_Best = T_Tong[i]
+            break
+        list_Best += T_Tong[i]
+        if len(list_Best) > N_o:
+            break
+    list_Best = list_Best[:N_o]
+    bestVal = float('-inf'); 
+    bestRow = -1; bestCol = -1
+    for (x, y) in list_Best:
+        banco[x][y] = AI;
+
+        Board = banco.copy(); 
+        Score_Player = copy.deepcopy(ScorePlayer); Score_AI = copy.deepcopy(ScoreAI); Score_Tong = copy.deepcopy(ScoreTong)
+        # Score_Player = ScorePlayer.copy(); Score_AI = ScoreAI.copy(); Score_Tong = ScoreTong.copy()
+        Tplayer = copy.deepcopy(T_player); TAi = copy.deepcopy(T_Ai); TTong = copy.deepcopy(T_Tong); 
+        Map_Player = copy.deepcopy(MapPlayer); Map_AI = copy.deepcopy(MapAI);
+        
+        RemoveT(Tplayer, Score_Player[x][y], x, y); RemoveT(TAi, Score_AI[x][y], x, y)
+        RemoveT(TTong, Score_Tong[x][y], x, y)
+
+        SCAN(Board, Map_Player, player, x, y, Score_Player, Score_AI, Score_Tong, Tplayer, TAi,  TTong);
+        SCAN(Board, Map_AI, AI, x, y, Score_Player, Score_AI, Score_Tong, Tplayer, TAi,  TTong);
+        
+        moveVal = minimax(Board, False, 2, Score_Player, Score_AI, Score_Tong, Tplayer, TAi, TTong, Map_Player, Map_AI, x, y)
+        print(x, y, moveVal, "####################################")
+        banco[x][y] = "."
+
+        if moveVal > bestVal:
+            bestRow = x; bestCol = y 
+            bestVal = moveVal
+
+    return (bestRow, bestCol)
+
 
 def game_loop():
     global AI, player;
-    global ScorePlayer, ScoreAI, T_Ai, T_player, banco, game_over, turn, LuotAI;
-    
+    global ScorePlayer, ScoreAI, ScoreTong, T_Ai, T_player, T_Tong, banco, game_over, turn, LuotAI;
+    global MapPlayer, MapAI;
     while True:
         draw_board(); draw_XO(banco); draw_numbers()
         for event in pygame.event.get():
@@ -262,8 +393,8 @@ def game_loop():
                         if checkWin.checkWin(banco, player, row+1, col+1, nxn, NumberToWin) == "Win":
                             game_over = True; 
                             break
-                        SCAN(player, row, col);
-                        SCAN(AI, row, col);
+                        SCAN(banco, MapPlayer, player, row, col, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong);
+                        SCAN(banco, MapAI, AI, row, col, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong);
                         LuotAI = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 3:
@@ -277,21 +408,23 @@ def game_loop():
                             xau = MapPlayer[x][y][Direc[(-dx, -dy)]] +  "X" + MapPlayer[x][y][Direc[(dx, dy)]]
                         print(xau, flush=True)
                     print()
-            if event.type == KEYDOWN and LuotAI:
+            if LuotAI:
+                draw_board(); draw_XO(banco); draw_numbers()
+                # if (event.key == K_SPACE):
+                (x, y) = AI_move()
+                banco[x][y] = AI; Update_Pre(x, y, AI)
+                # draw_board();
+                RemoveT(T_player, ScorePlayer[x][y], x, y); RemoveT(T_Ai, ScoreAI[x][y], x, y)
+                RemoveT(T_Tong, ScoreTong[x][y], x, y)
+                ScorePlayer[x][y] = "-1"; ScoreAI[x][y] = "-1"; ScoreTong[x][y] = "-1"
+                if checkWin.checkWin(banco, AI, x+1, y+1, nxn, NumberToWin) == "Win":
+                    game_over = True; turn = AI;
+                    break
+                SCAN(banco, MapPlayer, player, x, y, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong);
+                SCAN(banco, MapAI, AI, x, y, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong);
+                
                 LuotAI = False;
-                if (event.key == K_SPACE):
-                    #(x, y) = T_Tong[min(T_Tong.keys())][0] 
-                    (x, y) = AI_move()
-                    banco[x][y] = AI; Update_Pre(x, y, AI)
-                    draw_board();
-                    RemoveT(T_player, ScorePlayer[x][y], x, y); RemoveT(T_Ai, ScoreAI[x][y], x, y)
-                    RemoveT(T_Tong, ScoreTong[x][y], x, y)
-                    ScorePlayer[x][y] = "-1"; ScoreAI[x][y] = "-1"; ScoreTong[x][y] = "-1"
-                    if checkWin.checkWin(banco, AI, x+1, y+1, nxn, NumberToWin) == "Win":
-                        game_over = True; turn = AI;
-                        break
-                    SCAN(player, x, y);
-                    SCAN(AI, x, y);
+
             if event.type == KEYDOWN:
                 if (event.key == K_r):
                     Init()
