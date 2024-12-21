@@ -2,9 +2,6 @@ import pygame, sys, checkWin
 from pygame import QUIT, K_SPACE, K_RETURN, K_UP, K_DOWN, K_LEFT, K_RIGHT, KEYDOWN, K_a, K_s, K_d, K_w, K_r, K_p
 import copy
 
-import os
-os.chdir("E:/ThisPC/Desktop/Code/Caro")
-
 pygame.init()
 GRID_SIZE = 15; nxn = 10;
 banco = []; NumberToWin = 5; player = ""; AI = ""; turn = ""; pre = (); game_over = False; turn = ""; LuotAI = False
