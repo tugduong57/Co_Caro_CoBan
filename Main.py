@@ -1,16 +1,46 @@
-import pygame, sys, checkWin
+import pygame, sys
 from pygame import QUIT, K_SPACE, K_RETURN, K_UP, K_DOWN, K_LEFT, K_RIGHT, KEYDOWN, K_a, K_s, K_d, K_w, K_r, K_p
 import copy
 
 pygame.init()
-GRID_SIZE = 15; nxn = 10;
-banco = []; NumberToWin = 5; player = ""; AI = ""; turn = ""; pre = (); game_over = False; turn = ""; LuotAI = False
-ScorePlayer = []; ScoreAI = []; ScoreTong = []; T_Tong = {}
-TH = {}; T_player = {}; T_Ai = {} # Bảng tra cứu điểm; Dir lưu tọa độ các điểm có cùng Value
+
+GRID_SIZE = 15; nxn = 15;
+banco = []; NumberToWin = 5; 
+
+player = ""; AI = ""; turn = ""; pre = (); game_over = False; LuotAI = False
+# Bảng tra cứu điểm
+TH = {};  
+# Bảng lưu 8 hướng của 1 ô trống -> phối hợp để tra cứu điểm TH
+MapPlayer = []; MapAI = [] 
+# Dir lưu tọa độ các điểm có cùng Value
+T_player = {}; T_Ai = {}; T_Tong = {}
+# Bảng lưu "Điểm đánh giá" 4 "chiều" của 1 ô trống
+ScorePlayer = []; ScoreAI = []; ScoreTong = [];
+
 directions = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]
 Direc = {(-1, 0): 1, (-1, 1): 2, (0, 1): 3, (1, 1): 4, (1, 0): 5, (1, -1):6, (0, -1):7, (-1, -1):8}
-MapPlayer = []; MapAI = [] 
-LuotDiThuX = 0
+
+def checkWin(banco, turn, x, y):
+    turn_X = [0, 0, 0, 0, 0, 0, 0, 0]
+    for dx, dy in directions:
+        dem = 0; i = 1
+        while True:
+            new_x = x + dx * i; new_y = y + dy * i
+            if 0 <= new_x < nxn and 0 <= new_y < nxn:
+                giatri = banco[new_x][new_y]
+                if giatri == turn:
+                    dem += 1
+                else:
+                    break
+            else:
+                break
+            i += 1
+        j = Direc[dx,dy]-1
+        turn_X[j] = dem
+        if j >= 4:
+            if turn_X[j] + turn_X[j-4] >= 4:
+                return True
+    return False
 
 def AddT(T, value, x, y):
     if value not in T:
@@ -32,28 +62,28 @@ def taoBangDanhGia(N):
     matrix = [["F"] * N for _ in range(N)]
     return matrix
 
-def print_matrix(matrix):
-    for row in matrix:
-        print(" ".join(f"{value:5}" for value in row))
-    print()
-
 def Init():
-    global nxn, banco, player, AI, pre, game_over, turn, LuotAI, LuotDiThuX;
-    global ScorePlayer, ScoreAI, ScoreTong, MapPlayer, MapAI, TH, T_player, T_Ai, T_Tong;
-    game_over = False; LuotDiThuX = 0
-    turn = player; LuotAI = False
-    pre = (0,0,"")
-    nxn = GRID_SIZE;
+
+    global banco;
+    global player, AI, turn,  pre, game_over, LuotAI;
+    global TH, MapPlayer, MapAI, T_player, T_Ai, T_Tong, ScorePlayer, ScoreAI, ScoreTong;
+
     banco = [ ['.']*nxn for _ in range(nxn)]
-    ScorePlayer = taoBangDanhGia(nxn); ScoreAI = taoBangDanhGia(nxn); ScoreTong = taoBangDanhGia(nxn);
-    player = "X"; AI = "O"
-    # Ma trận Map : lưu 8 hướng của 1 ô, và điểm đánh giá của 4 đường
+    player = "X"; AI = "O"; turn = player; pre = (0,0,"")
+    game_over = False; LuotAI = False
+    
+    TH.clear()
+    with open("H.txt", encoding="utf-8") as inp:
+        for i in range(361):
+            line = inp.readline().split(";"); xau = line[0]; diem = line[1]
+            TH[xau] = diem 
+
     MapPlayer.clear(); MapAI.clear()
     for i in range(nxn):
         MapPlayer.append( [] ); MapAI.append( [] )
         for j in range(nxn):
-            MapPlayer[i].append( [0] + ["00"]*8 + ["F","F","F","F"]) # white
-            MapAI[i].append( [0] + ["00"]*8 + ["F","F","F","F"]) # white
+            MapPlayer[i].append( [0] + ["00"]*8 + ["F","F","F","F"]) 
+            MapAI[i].append( [0] + ["00"]*8 + ["F","F","F","F"]) 
             if i == 0:
                 MapPlayer[i][j][1] = "-1"; MapAI[i][j][1] = "-1"
             if j == nxn-1: 
@@ -62,11 +92,8 @@ def Init():
                 MapPlayer[i][j][5] = "-1"; MapAI[i][j][5] = "-1"
             if j == 0:
                 MapPlayer[i][j][7] = "-1"; MapAI[i][j][7] = "-1"
-    TH.clear()
-    with open("H.txt", encoding="utf-8") as inp:
-        for i in range(361):
-            line = inp.readline().split(";"); xau = line[0]; diem = line[1]
-            TH[xau] = diem
+
+    ScorePlayer = taoBangDanhGia(nxn); ScoreAI = taoBangDanhGia(nxn); ScoreTong = taoBangDanhGia(nxn);
     T_player = {}; T_Ai = {}; T_Tong = {}
     for i in range(nxn):
         for j in range(nxn):
@@ -75,28 +102,17 @@ def Init():
 
 
 # Set up
-WINDOW_WIDTH = 800; WINDOW_HEIGHT = 800; SQUARE_SIZE = min(WINDOW_WIDTH, WINDOW_HEIGHT) // GRID_SIZE
-WHITE = (255, 255, 255); BACKGROUND_COLOR = (255, 255, 255); LINE_COLOR = (0, 0, 0); X_COLOR = (0, 0, 0); O_COLOR = (0, 0, 0); Pre_COLOR = (0,0,255)
+WINDOW_WIDTH = 760; WINDOW_HEIGHT = 760; 
+SQUARE_SIZE = WINDOW_WIDTH // GRID_SIZE
+WINDOW_WIDTH = WINDOW_WIDTH - WINDOW_WIDTH%SQUARE_SIZE
+WINDOW_HEIGHT = WINDOW_WIDTH
+WHITE = (255, 255, 255); BACKGROUND_COLOR = (255, 255, 255); LINE_COLOR = (0, 0, 0); 
+X_COLOR = (0, 0, 0); O_COLOR = (0, 0, 0); Pre_COLOR = (0,0,255)
 
 # Tạo cửa sổ
 screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption('Bàn cờ XO')
+pygame.display.set_caption('AI-Caro')
 font = pygame.font.Font(None, 20)
-
-def draw_numbers():
-    # Vẽ số vào từng ô vuông
-    for row in range(GRID_SIZE):
-        for col in range(GRID_SIZE):
-            value1 = str(ScorePlayer[row][col])
-            value2 = str(ScoreAI[row][col])
-            value3 = str(ScoreTong[row][col])
-            if value1 == "-1":
-                continue
-            text_surface1 = font.render(value1, True, (0,0,0)); text_surface2 = font.render(value2, True, (0,0,0))
-            text_surface3 = font.render(value3, True, (0,0,0))
-            text_x = col * SQUARE_SIZE; text_y = row * SQUARE_SIZE
-            screen.blit(text_surface1, (text_x+2, text_y+2)); screen.blit(text_surface2, (text_x+2, text_y+17))
-            screen.blit(text_surface3, (text_x+2, text_y+32))
 
 # Hàm vẽ bàn cờ
 def draw_board():
@@ -106,39 +122,36 @@ def draw_board():
     pygame.draw.line(screen, LINE_COLOR, (0, 0 * SQUARE_SIZE), (WINDOW_WIDTH, 0* SQUARE_SIZE), 5); pygame.draw.line(screen, LINE_COLOR, (0 * SQUARE_SIZE, 0), (0 * SQUARE_SIZE, WINDOW_HEIGHT), 5); pygame.draw.line(screen, LINE_COLOR, (0, GRID_SIZE * SQUARE_SIZE-2), (WINDOW_WIDTH, GRID_SIZE* SQUARE_SIZE-2), 5); pygame.draw.line(screen, LINE_COLOR, (GRID_SIZE * SQUARE_SIZE-1, 0), (GRID_SIZE * SQUARE_SIZE-1, WINDOW_HEIGHT), 5)
 
 # Hàm vẽ X và O
+X_cm = SQUARE_SIZE // 5; O_cm = SQUARE_SIZE//7
 def draw_XO(banco):
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
             if banco[row][col] == 'X':
-                pygame.draw.line(screen, X_COLOR, (col * SQUARE_SIZE + 20, row * SQUARE_SIZE + 20), (col * SQUARE_SIZE + SQUARE_SIZE - 20, row * SQUARE_SIZE + SQUARE_SIZE - 20), 5); pygame.draw.line(screen, X_COLOR, (col * SQUARE_SIZE + SQUARE_SIZE - 20, row * SQUARE_SIZE + 20), (col * SQUARE_SIZE + 20, row * SQUARE_SIZE + SQUARE_SIZE - 20), 5)
+                pygame.draw.line(screen, X_COLOR, (col * SQUARE_SIZE + X_cm, row * SQUARE_SIZE + X_cm), (col * SQUARE_SIZE + SQUARE_SIZE - X_cm, row * SQUARE_SIZE + SQUARE_SIZE - X_cm), 5); 
+                pygame.draw.line(screen, X_COLOR, (col * SQUARE_SIZE + SQUARE_SIZE - X_cm, row * SQUARE_SIZE + X_cm), (col * SQUARE_SIZE + X_cm, row * SQUARE_SIZE + SQUARE_SIZE - X_cm), 5)
             elif banco[row][col] == 'O':
-                pygame.draw.circle(screen, O_COLOR, (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), SQUARE_SIZE // 2 - 7, 2) 
+                pygame.draw.circle(screen, O_COLOR, (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), SQUARE_SIZE // 2 - O_cm, 2) 
     row = pre[0]; col = pre[1]
     if pre[2] == "X":
-        pygame.draw.line(screen, Pre_COLOR, (col * SQUARE_SIZE + 20, row * SQUARE_SIZE + 20), (col * SQUARE_SIZE + SQUARE_SIZE - 20, row * SQUARE_SIZE + SQUARE_SIZE - 20), 5); pygame.draw.line(screen, Pre_COLOR, (col * SQUARE_SIZE + SQUARE_SIZE - 20, row * SQUARE_SIZE + 20), (col * SQUARE_SIZE + 20, row * SQUARE_SIZE + SQUARE_SIZE - 20), 5)
+        pygame.draw.line(screen, Pre_COLOR, (col * SQUARE_SIZE + X_cm, row * SQUARE_SIZE + X_cm), (col * SQUARE_SIZE + SQUARE_SIZE - X_cm, row * SQUARE_SIZE + SQUARE_SIZE - X_cm), 5); 
+        pygame.draw.line(screen, Pre_COLOR, (col * SQUARE_SIZE + SQUARE_SIZE - X_cm, row * SQUARE_SIZE + X_cm), (col * SQUARE_SIZE + X_cm, row * SQUARE_SIZE + SQUARE_SIZE - X_cm), 5)
     elif pre[2] == "O":
-        pygame.draw.circle(screen, Pre_COLOR, (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), SQUARE_SIZE // 2 - 7, 2) 
+        pygame.draw.circle(screen, Pre_COLOR, (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), SQUARE_SIZE // 2 - O_cm, 2) 
 
 def Update_Score(banco, Map, turn, x, y,dx, dy, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong):
     if turn == player:
         matrix = ScorePlayer; T_matrix = T_player
-    else: # turn == AI
+    else: 
         matrix = ScoreAI; T_matrix = T_Ai
 
     if (dx, dy) in [ (1, 0), (1, -1), (0, -1), (-1, -1) ]:
         xau = Map[x][y][Direc[(dx, dy)]] + "X" + Map[x][y][Direc[(-dx, -dy)]]   
     elif (dx, dy) in [ (-1, 0),(-1, 1),  (0, 1), ( 1, 1 ) ]:
         xau = Map[x][y][Direc[(-dx, -dy)]] +  "X" + Map[x][y][Direc[(dx, dy)]]
-
     k = Direc[(dx, dy)]
     if k > 4:
         k -= 4
     Map[x][y][8 + k] = TH[xau]
-
-    if turn == player:
-        matrix = ScorePlayer; T_matrix = T_player;
-    else: # turn == AI
-        matrix = ScoreAI; T_matrix = T_Ai;
 
     oldScore = matrix[x][y]
     m = [Map[x][y][9],Map[x][y][10],Map[x][y][11],Map[x][y][12]]; m.sort();
@@ -147,15 +160,13 @@ def Update_Score(banco, Map, turn, x, y,dx, dy, ScorePlayer, ScoreAI, ScoreTong,
     elif m[0] == m[1] == "D":
         m[0] = "C"
 
-    # else:
-    #     m = m[0]
     Map[x][y][0] = "".join(m)
+
     newScore = Map[x][y][0];
     RemoveT(T_matrix, matrix[x][y], x, y); matrix[x][y] = newScore; AddT(T_matrix, matrix[x][y], x, y)
+    
     RemoveT(T_Tong, ScoreTong[x][y], x, y);
-    # ScoreTong[x][y] = min(ScorePlayer[x][y], ScoreAI[x][y])
-    tong = ScorePlayer[x][y] + ScoreAI[x][y]; tong = list(tong); tong.sort()
-    ScoreTong[x][y] = "".join(tong[:4])
+    tong = ScorePlayer[x][y] + ScoreAI[x][y]; tong = list(tong); tong.sort(); ScoreTong[x][y] = "".join(tong[:4])
     AddT(T_Tong, ScoreTong[x][y], x, y);
 
 def Update_Map(banco, Map, turn, x, y, dx, dy, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong):
@@ -214,6 +225,103 @@ def SCAN(banco, Map, turn, x, y, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai
                 break
             i += 1
 
+diemABC = {"A": 100000, "B": 10000, "C": 1000, "D": 100, "E": 10, "F": 0}
+def DiemBanCo(Tudien):
+    # Tổng điểm của Bàn cờ là tổng điểm của tất cả các giá trị đã đánh giá trong danh sách
+    e = 0; 
+    for key in Tudien:
+        diem_key = 0
+        for j in key: # j: A B C D E F 
+            diem_key += diemABC[j]
+        e += diem_key*len(Tudien[key])
+    return e
+
+def minimax(Board, isMaximizing, depth, alpha, beta, Score_Player, Score_AI, Score_Tong, Tplayer, TAi, TTong, Map_Player, Map_AI, x = -1, y = -1):
+    
+    if depth == 0:
+        if isMaximizing:
+            T_tancong = T_player; T_phongthu = TAi
+        else:
+            T_tancong = TAi; T_phongthu = T_player
+        result = DiemBanCo(T_tancong) - DiemBanCo(T_phongthu)
+        return result, None
+
+    # -------------------------------------------------------------------------------------
+    # Khối lấy ra N_o giá trị có "điểm đánh giá" cao nhất <=> nước đi khả thi nhất
+    N_o = 5
+    list_Best = []
+    T = list(TTong.keys()); T.sort()
+    for i in T:
+        if i[0] == "A" or i[0] == "B":
+            list_Best = TTong[i]
+            break
+        list_Best += TTong[i]
+        if len(list_Best) > N_o:
+            break
+    list_Best = list_Best[:N_o]
+    # -------------------------------------------------------------------------------------
+
+    if isMaximizing:
+        maxVal = float('-inf');
+        best_move = list_Best[0]
+        for (x, y) in list_Best:
+            Board[x][y] = AI;
+            if checkWin(Board, AI, x, y):
+                Val = 10000000
+                Board[x][y] = "."
+                maxVal = max(Val, maxVal); best_move = (x, y)
+                break
+            # -------------------------------------------------------------------------------------
+            # Khối cập nhật, duy trì "data đánh giá"
+            Board1 = Board.copy();  
+            Score_Player1 = copy.deepcopy(Score_Player); Score_AI1 = copy.deepcopy(Score_AI); Score_Tong1 = copy.deepcopy(Score_Tong); Tplayer1 = copy.deepcopy(Tplayer); TAi1 = copy.deepcopy(TAi); TTong1 = copy.deepcopy(TTong); Map_Player1 = copy.deepcopy(Map_Player); Map_AI1 = copy.deepcopy(Map_AI);
+            RemoveT(Tplayer1, Score_Player1[x][y], x, y); RemoveT(TAi1, Score_AI1[x][y], x, y); RemoveT(TTong1, Score_Tong1[x][y], x, y)
+            SCAN(Board1, Map_Player1, player, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
+            SCAN(Board1, Map_AI1, AI, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
+            # -------------------------------------------------------------------------------------
+            Val, move = minimax(Board1, False, depth-1, alpha, beta, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1, TTong1, Map_Player1, Map_AI1, x, y)
+            Board[x][y] = "."
+
+            if Val > maxVal:
+                maxVal = Val; best_move = (x, y)
+            
+            alpha = max(alpha, Val)
+            if beta <= alpha:
+                break
+
+        return maxVal, best_move
+
+    else:
+        minVal = float('inf');
+        best_move = list_Best[0]
+        for (x, y) in list_Best:
+            Board[x][y] = player;
+            if checkWin(Board, player, x, y):
+                Val = -10000000
+                Board[x][y] = "."
+                minVal = min(Val, maxVal); best_move = (x, y)
+                break
+            # -------------------------------------------------------------------------------------
+            # Khối cập nhật, duy trì "data đánh giá"
+            Board1 = Board.copy();  
+            Score_Player1 = copy.deepcopy(Score_Player); Score_AI1 = copy.deepcopy(Score_AI); Score_Tong1 = copy.deepcopy(Score_Tong); Tplayer1 = copy.deepcopy(Tplayer); TAi1 = copy.deepcopy(TAi); TTong1 = copy.deepcopy(TTong); Map_Player1 = copy.deepcopy(Map_Player); Map_AI1 = copy.deepcopy(Map_AI);
+            RemoveT(Tplayer1, Score_Player1[x][y], x, y); RemoveT(TAi1, Score_AI1[x][y], x, y); RemoveT(TTong1, Score_Tong1[x][y], x, y)
+            SCAN(Board1, Map_Player1, player, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
+            SCAN(Board1, Map_AI1, AI, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
+            # -------------------------------------------------------------------------------------
+            Val, move = minimax(Board1, True, depth-1, alpha, beta, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1, TTong1, Map_Player1, Map_AI1, x, y)
+            
+            Board[x][y] = "."
+
+            if Val < minVal:
+                minVal = Val; best_move = (x, y)
+
+            beta = min(beta, Val)
+            if beta <= alpha:
+                break
+
+        return minVal, best_move
+
 def UuTien_move(T_Ai, T_player):
     c = ""; d = ""
     for a in T_Ai:
@@ -228,128 +336,7 @@ def UuTien_move(T_Ai, T_player):
     # Nếu đối thủ không thắng ngay được: 
     if c != "":                # Tạo nước thắng "ở lượt sau" được thì tạo luôn
         return T_Ai[c][0]
-    # # Nếu không tạo được:                     
-    # if d != "":                # Chặn nước thắng "ở lượt sau" của player 
-    #     return T_player[d][0]
     return (-1, -1)
-
-diemABC = {"A": 100000, "B": 10000, "C": 1000, "D": 100, "E": 10, "F": 0}
-def DiemBanCo(Tudien):
-    e = 0
-    for key in Tudien:
-        diem_key = 0
-        for j in key:
-            diem_key += diemABC[j]
-        e += diem_key*len(Tudien[key])
-    return e
-
-def minimax(Board, isMaximizing, depth, alpha, beta, Score_Player, Score_AI, Score_Tong, Tplayer, TAi, TTong, Map_Player, Map_AI, x = -1, y = -1):
-    if depth == 0:
-        # Cần trả về điểm đánh giá của toàn bộ bàn cờ 
-        if isMaximizing:
-            T_tancong = T_player; T_phongthu = TAi
-        else:
-            T_tancong = TAi; T_phongthu = T_player
-            
-        # trả về điểm tấn công - điểm phòng thủ ?? 
-        result = 0
-
-        result += DiemBanCo(T_tancong)
-        result -= DiemBanCo(T_phongthu)
-
-        return result, None
-
-    N_o = 5
-    list_Best = []
-    T = list(TTong.keys())
-    T.sort()
-    for i in T:
-        if i[0] == "A" or i[0] == "B":
-            list_Best = TTong[i]
-            break
-        list_Best += TTong[i]
-        if len(list_Best) > N_o:
-            break
-    list_Best = list_Best[:N_o]
-
-    move = ()
-
-    if isMaximizing:
-        maxVal = float('-inf');
-        best_move = list_Best[0]
-
-        for (x, y) in list_Best:
-            
-            Board[x][y] = AI;
-            if checkWin.checkWin(Board, AI, x+1, y+1, nxn, NumberToWin) == "Win":
-                Val = 10000000
-                Board[x][y] = "."
-                maxVal = max(Val, maxVal); best_move = (x, y)
-                continue
-
-            Board1 = Board.copy();  
-            Score_Player1 = copy.deepcopy(Score_Player); Score_AI1 = copy.deepcopy(Score_AI); Score_Tong1 = copy.deepcopy(Score_Tong)
-            Tplayer1 = copy.deepcopy(Tplayer); TAi1 = copy.deepcopy(TAi); TTong1 = copy.deepcopy(TTong); 
-            Map_Player1 = copy.deepcopy(Map_Player); Map_AI1 = copy.deepcopy(Map_AI);
-            
-            RemoveT(Tplayer1, Score_Player1[x][y], x, y); RemoveT(TAi1, Score_AI1[x][y], x, y)
-            RemoveT(TTong1, Score_Tong1[x][y], x, y)
-
-            SCAN(Board1, Map_Player1, player, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
-            SCAN(Board1, Map_AI1, AI, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
-            
-            
-            Val, move = minimax(Board1, False, depth-1, alpha, beta, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1, TTong1, Map_Player1, Map_AI1, x, y)
-            Board[x][y] = "."
-
-            if Val > maxVal:
-                maxVal = Val; 
-                best_move = (x, y)
-            
-            alpha = max(alpha, Val)
-            if beta <= alpha:
-                break
-
-        return maxVal, best_move
-
-    else:
-        minVal = float('inf');
-        best_move = list_Best[0]
-
-        for (x, y) in list_Best:
-            
-            Board[x][y] = player;
-            if checkWin.checkWin(Board, player, x+1, y+1, nxn, NumberToWin) == "Win":
-                Val = -10000000
-                Board[x][y] = "."
-                minVal = min(Val, maxVal); best_move = (x, y)
-                continue
-
-            Board1 = Board.copy();  
-            Score_Player1 = copy.deepcopy(Score_Player); Score_AI1 = copy.deepcopy(Score_AI); Score_Tong1 = copy.deepcopy(Score_Tong)
-            Tplayer1 = copy.deepcopy(Tplayer); TAi1 = copy.deepcopy(TAi); TTong1 = copy.deepcopy(TTong); 
-            Map_Player1 = copy.deepcopy(Map_Player); Map_AI1 = copy.deepcopy(Map_AI);
-            
-            RemoveT(Tplayer1, Score_Player1[x][y], x, y); RemoveT(TAi1, Score_AI1[x][y], x, y)
-            RemoveT(TTong1, Score_Tong1[x][y], x, y)
-
-            SCAN(Board1, Map_Player1, player, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
-            SCAN(Board1, Map_AI1, AI, x, y, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1,  TTong1);
-            
-            
-            Val, move = minimax(Board1, True, depth-1, alpha, beta, Score_Player1, Score_AI1, Score_Tong1, Tplayer1, TAi1, TTong1, Map_Player1, Map_AI1, x, y)
-            
-            Board[x][y] = "."
-
-            if Val < minVal:
-                minVal = Val; 
-                best_move = (x, y)
-            
-            beta = min(beta, Val)
-            if beta <= alpha:
-                break
-
-        return minVal, best_move
 
 def AI_move():
     (x, y) = UuTien_move(T_Ai, T_player)
@@ -357,21 +344,18 @@ def AI_move():
         return (x, y)
 
     Board = banco.copy(); 
-    Score_Player = copy.deepcopy(ScorePlayer); Score_AI = copy.deepcopy(ScoreAI); Score_Tong = copy.deepcopy(ScoreTong)
-    Tplayer = copy.deepcopy(T_player); TAi = copy.deepcopy(T_Ai); TTong = copy.deepcopy(T_Tong); 
-    Map_Player = copy.deepcopy(MapPlayer); Map_AI = copy.deepcopy(MapAI);
+    # deepcopy rất rất nhiều "data"
+    Score_Player = copy.deepcopy(ScorePlayer); Score_AI = copy.deepcopy(ScoreAI); Score_Tong = copy.deepcopy(ScoreTong); Tplayer = copy.deepcopy(T_player); TAi = copy.deepcopy(T_Ai); TTong = copy.deepcopy(T_Tong); Map_Player = copy.deepcopy(MapPlayer); Map_AI = copy.deepcopy(MapAI);
     
-
     best_score, best_move = minimax(Board, True, 3,  float('-inf'), float('inf'), Score_Player, Score_AI, Score_Tong, Tplayer, TAi, TTong, Map_Player, Map_AI)
-    print(best_score, flush = True)
+    #print(best_score, flush = True)
     return best_move
 
 def game_loop():
-    global AI, player;
-    global ScorePlayer, ScoreAI, ScoreTong, T_Ai, T_player, T_Tong, banco, game_over, turn, LuotAI;
-    global MapPlayer, MapAI, LuotDiThuX;
+    global ScorePlayer, ScoreAI, ScoreTong, T_Ai, T_player, T_Tong, MapPlayer, MapAI, banco, game_over, turn, LuotAI;
     while True:
-        draw_board(); draw_XO(banco); draw_numbers()
+        draw_board(); draw_XO(banco); 
+        # draw_numbers()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -382,44 +366,26 @@ def game_loop():
                 if event.button == 1:
                     if banco[row][col] == '.':
                         banco[row][col] = player; Update_Pre(row, col, player)
-                        RemoveT(T_player, ScorePlayer[row][col], row, col); RemoveT(T_Ai, ScoreAI[row][col], row, col)
-                        RemoveT(T_Tong, ScoreTong[row][col], row, col);
+                        RemoveT(T_player, ScorePlayer[row][col], row, col); RemoveT(T_Ai, ScoreAI[row][col], row, col); RemoveT(T_Tong, ScoreTong[row][col], row, col);
                         ScorePlayer[row][col] = "-1"; ScoreAI[row][col] = "-1"; ScoreTong[row][col] = "-1"
-                        LuotDiThuX += 1
-                        if checkWin.checkWin(banco, player, row+1, col+1, nxn, NumberToWin) == "Win":
+                        if checkWin(banco, player, row, col):
                             game_over = True; 
                             break
                         SCAN(banco, MapPlayer, player, row, col, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong);
                         SCAN(banco, MapAI, AI, row, col, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong);
                         LuotAI = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 3:
-                    x_mouse, y_mouse = pygame.mouse.get_pos(); x, y = y_mouse // SQUARE_SIZE, x_mouse // SQUARE_SIZE
-                    print(MapPlayer[x][y], flush=True)
-                    for (dx, dy) in directions: 
-                    #(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)
-                        if (dx, dy) in [ (1, 0), (1, -1), (0, -1), (-1, -1) ]:
-                            xau = MapPlayer[x][y][Direc[(dx, dy)]] + "X" + MapPlayer[x][y][Direc[(-dx, -dy)]]   
-                        elif (dx, dy) in [ (-1, 0),(-1, 1),  (0, 1), ( 1, 1 ) ]:
-                            xau = MapPlayer[x][y][Direc[(-dx, -dy)]] +  "X" + MapPlayer[x][y][Direc[(dx, dy)]]
-                        print(xau, flush=True)
-                    print()
+
             if LuotAI and not game_over:
-                draw_board(); draw_XO(banco); draw_numbers()
-                # if (event.key == K_SPACE):
+                draw_board(); draw_XO(banco); # draw_numbers()
                 (x, y) = AI_move()
                 banco[x][y] = AI; Update_Pre(x, y, AI)
-                # draw_board();
-                RemoveT(T_player, ScorePlayer[x][y], x, y); RemoveT(T_Ai, ScoreAI[x][y], x, y)
-                RemoveT(T_Tong, ScoreTong[x][y], x, y)
+                RemoveT(T_player, ScorePlayer[x][y], x, y); RemoveT(T_Ai, ScoreAI[x][y], x, y); RemoveT(T_Tong, ScoreTong[x][y], x, y)
                 ScorePlayer[x][y] = "-1"; ScoreAI[x][y] = "-1"; ScoreTong[x][y] = "-1"
-                LuotDiThuX += 1
-                if checkWin.checkWin(banco, AI, x+1, y+1, nxn, NumberToWin) == "Win":
+                if checkWin(banco, AI, x, y):
                     game_over = True; turn = AI;
                     break
                 SCAN(banco, MapPlayer, player, x, y, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong);
                 SCAN(banco, MapAI, AI, x, y, ScorePlayer, ScoreAI, ScoreTong, T_player, T_Ai,  T_Tong);
-                
                 LuotAI = False;
 
             if event.type == KEYDOWN:
@@ -428,9 +394,33 @@ def game_loop():
 
         if game_over:
             font = pygame.font.Font(None, 74)
-            winner_text = font.render(f'{turn} wins!', True, (0, 0, 0))
+            if turn == AI:
+                winner_text = font.render(f'{turn} wins!', True, (255, 0, 0))
+            else:
+                winner_text = font.render(f'{turn} wins!', True, (0, 255, 0))
+            Comment_1 = font.render('Press "R" to reset', True, (0, 0, 255))
             screen.blit(winner_text, (WINDOW_WIDTH // 2 - winner_text.get_width() // 2, WINDOW_HEIGHT // 2 - winner_text.get_height() // 2))
+            screen.blit(Comment_1, (WINDOW_WIDTH // 2 - Comment_1.get_width() // 2, WINDOW_HEIGHT // 2 - Comment_1.get_height() // 2 + 50))
+
         pygame.display.flip()
 
 Init();
 game_loop()
+
+
+'''
+def draw_numbers():
+    # Vẽ số vào từng ô vuông
+    for row in range(GRID_SIZE):
+        for col in range(GRID_SIZE):
+            value1 = str(ScorePlayer[row][col])
+            value2 = str(ScoreAI[row][col])
+            value3 = str(ScoreTong[row][col])
+            if value1 == "-1":
+                continue
+            text_surface1 = font.render(value1, True, (0,0,0)); text_surface2 = font.render(value2, True, (0,0,0))
+            text_surface3 = font.render(value3, True, (0,0,0))
+            text_x = col * SQUARE_SIZE; text_y = row * SQUARE_SIZE
+            screen.blit(text_surface1, (text_x+2, text_y+2)); screen.blit(text_surface2, (text_x+2, text_y+17))
+            screen.blit(text_surface3, (text_x+2, text_y+32))
+'''
